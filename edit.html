@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>New Template Test</title>
+
+  <link rel="stylesheet" href="/dist/style.css">
+  <script src="/dist/modules/Alpinejs.min@3.10.2.js" defer></script>
+  <script src="/dist/main.js" type="module"></script>
+</head>
+
+<body>
+
+  <form class="UpdateVolume">
+    <div class="FormGroup">
+      <label for="MangaTitle">Manga Title</label>
+      <select name="MangaTitle" id="MangaTitle"></select>
+    </div>
+    <div class="FormGroup">
+      <label for="VolumeNumber">Volume Number</label>
+      <input type="number" name="VolumeNumber" id="VolumeNumber" placeholder="Volume Number..." />
+    </div>
+    <div class="FormGroup">
+      <label for="FromChapter">From Chapter</label>
+      <input type="number" name="FromChapter" id="FromChapter" placeholder="From Chapter..." />
+    </div>
+    <div class="FormGroup">
+      <label for="ToChapter">To Chapter</label>
+      <input type="number" name="ToChapter" id="ToChapter" placeholder="To Chapter..." />
+    </div>
+    <div class="FormGroup">
+      <label for="FileSize">File Size</label>
+      <input type="text" name="FileSize" id="FileSize" placeholder="File Size..." />
+    </div>
+    <div class="FormGroup">
+      <label for="DLink1">Download Link 1</label>
+      <input type="url" name="DLink1" id="DLink1" placeholder="DLink1..." />
+    </div>
+    <div class="FormGroup">
+      <label for="DLink2">Download Link 2</label>
+      <input type="url" name="DLink2" id="DLink2" placeholder="DLink2..." />
+    </div>
+    <div class="FormGroup">
+      <label for="VolumeCover">Volume Cover</label>
+      <input type="url" name="VolumeCover" id="VolumeCover" placeholder="Volume Cover..." />
+    </div>
+    <div class="FormGroup">
+      <button type="submit">Upload</button>
+    </div>
+  </form>
+
+  <form class="UpdateManga">
+    <div class="FormGroup">
+      <label for="MangaTitle">Manga Title</label>
+      <select name="MangaTitle" id="MangaTitle"></select>
+    </div>
+    <div class="FormGroup">
+      <label for="MangaState">Manga State</label>
+      <select name="MangaState" id="MangaState">
+        <option value="Publishing">Publishing</option>
+        <option value="Finished">Finished</option>
+      </select>
+    </div>
+    <div class="FormGroup">
+      <label for="VolumesCount">Volumes Count</label>
+      <input type="number" name="VolumesCount" id="VolumesCount" placeholder="Volumes Count..." />
+    </div>
+    <div class="FormGroup">
+      <label for="LastCover">Last Cover</label>
+      <input type="url" name="LastCover" id="LastCover" placeholder="Last Cover..." />
+    </div>
+    <div class="FormGroup">
+      <button type="submit">Upload</button>
+    </div>
+  </form>
+
+</body>
+
+</html>

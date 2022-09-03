@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>New Template Test</title>
+
+  <link rel="stylesheet" href="/dist/style.css">
+  <script src="/dist/modules/Alpinejs.min@3.10.2.js" defer></script>
+  <script src="/dist/main.js" type="module"></script>
+</head>
+
+<body x-data="{ openTab: 1 }">
+  
+  <button type="button" class="OpenSide">=></button>
+  <div class="blur"></div>
+  
+  <nav>
+    <div class="logo">Manga4Up</div>
+    <div class="links">
+      <button type="button" x-on:click="openTab = 1">Sign in</button>
+      <button type="button" x-on:click="openTab = 2">Add Volume</button>
+      <button type="button" x-on:click="openTab = 3">Add Manga</button>
+      <button type="button" x-on:click="openTab = 4">Add Blog</button>
+      <button type="button" x-on:click="openTab = 5">Edit Recent</button>
+      <button type="button" x-on:click="openTab = 6">Edit List</button>
+      <button type="button" x-on:click="openTab = 7">Edit By Title</button>
+    </div>
+  </nav>
+  
+  <section>
+    <span x-show="openTab === 1" x-cloak>
+      
+      <form class="SignIn">
+        <div class="FormGroup">
+          <label for="email">email</label>
+          <input type="email" name="email" id="email" placeholder="email..." />
+        </div>
+        <div class="FormGroup">
+          <label for="password">password</label>
+          <input type="password" name="password" id="password" placeholder="password..." />
+        </div>
+        <div class="FormGroup">
+          <button type="submit">Sign In</button>
+        </div>
+      </form>
+      
+      <div class="UserContainer"></div>
+      
+    </span>
+    <span x-show="openTab === 2" x-cloak>
+      
+      <form class="UploadVolume">
+        <div class="FormGroup">
+          <label for="VolumeID">Volume ID</label>
+          <span name="VolumeID" id="VolumeID"></span>
+        </div>        
+        <div class="FormGroup">
+          <label for="MangaTitle">Manga Title</label>
+          <select name="MangaTitle" id="MangaTitle"></select>
+        </div>
+        <div class="FormGroup">
+          <label for="VolumeNumber">Volume Number</label>
+          <input type="number" name="VolumeNumber" id="VolumeNumber" placeholder="Volume Number..." />
+        </div>
+        <div class="FormGroup">
+          <label for="FromChapter">From Chapter</label>
+          <input type="number" name="FromChapter" id="FromChapter" placeholder="From Chapter..." />
+        </div>
+        <div class="FormGroup">
+          <label for="ToChapter">To Chapter</label>
+          <input type="number" name="ToChapter" id="ToChapter" placeholder="To Chapter..." />
+        </div>
+        <div class="FormGroup">
+          <label for="FileSize">File Size</label>
+          <input type="text" name="FileSize" id="FileSize" placeholder="File Size..." />
+        </div>
+        <div class="FormGroup">
+          <label for="DLink1">Download Link 1</label>
+          <input type="url" name="DLink1" id="DLink1" placeholder="DLink1..." />
+        </div>
+        <div class="FormGroup">
+          <label for="DLink2">Download Link 2</label>
+          <input type="url" name="DLink2" id="DLink2" placeholder="DLink2..." />
+        </div>
+        <div class="FormGroup">
+          <label for="VolumeCover">Volume Cover</label>
+          <input type="url" name="VolumeCover" id="VolumeCover" placeholder="Volume Cover..." />
+        </div>
+        <div class="FormGroup">
+          <button type="submit">Upload</button>
+        </div>
+      </form>
+      
+    </span>
+    <span x-show="openTab === 3" x-cloak>
+      
+      <form class="UploadManga">
+        <div class="FormGroup">
+          <label for="MangaTitle">Manga Title</label>
+          <select name="MangaTitle" id="MangaTitle"></select>
+        </div>
+        <div class="FormGroup">
+          <label for="MangaState">Manga State</label>
+          <select name="MangaState" id="MangaState">
+            <option value="Publishing">Publishing</option>
+            <option value="Finished">Finished</option>
+          </select>
+        </div>
+        <div class="FormGroup">
+          <label for="VolumesCount">Volumes Count</label>
+          <input type="number" name="VolumesCount" id="VolumesCount" placeholder="Volumes Count..." />
+        </div>
+        <div class="FormGroup">
+          <label for="LastCover">Last Cover</label>
+          <input type="url" name="LastCover" id="LastCover" placeholder="Last Cover..." />
+        </div>
+        <div class="FormGroup">
+          <button type="submit">Upload</button>
+        </div>
+      </form>
+      
+    </span>
+    <span x-show="openTab === 4" x-cloak>
+      
+      <form class="UploadBlog">
+        <div class="FormGroup">
+          <label for="BlogTitle">Blog Title</label>
+          <input type="text" name="BlogTitle" id="BlogTitle" placeholder="Blog Title..." />
+        </div>
+        <div class="FormGroup">
+          <label for="BlogContent">Blog Content</label>
+          <textarea name="BlogContent" id="BlogContent" placeholder="Blog Content..."></textarea>
+        </div>
+        <div class="FormGroup">
+          <label for="BlogCover">Blog Cover</label>
+          <input type="file" name="BlogCover" id="BlogCover" accept="image/*" />
+        </div>
+        <div class="FormGroup">
+          <progress max="100" value="0" name="progress"></progress>
+          <button type="submit">Upload</button>
+        </div>
+      </form>
+      
+    </span>
+    <span x-show="openTab === 5" x-cloak>
+      
+      <table>
+        <thead>
+          <tr>
+            <td>Cover</td>
+            <td>Info</td>
+            <td>Actions</td>
+          </tr>
+        </thead>
+        <tbody class="EditRecent"></tbody>
+      </table>
+      
+    </span>
+    <span x-show="openTab === 6" x-cloak>
+      
+      <table>
+        <thead>
+          <tr>
+            <td>Cover</td>
+            <td>Info</td>
+            <td>Actions</td>
+          </tr>
+        </thead>
+        <tbody class="EditList"></tbody>
+      </table>
+
+      
+    </span>
+    <span x-show="openTab === 7" x-cloak>
+      
+      <div class="FormGroup">
+        <label for="SelectManga">Select Manga</label>
+        <select name="SelectManga" id="SelectManga"></select>
+      </div>
+      
+      <table>
+        <thead>
+          <tr>
+            <td>Cover</td>
+            <td>Info</td>
+            <td>Actions</td>
+          </tr>
+        </thead>
+        <tbody class="SoloManga"></tbody>
+      </table>
+      
+    </span>
+  </section>
+  
+  <script>
+    const OpenSide = document.querySelector('.OpenSide');
+    const blur = document.querySelector('.blur');
+    const nav = document.querySelector('nav');
+    
+    OpenSide.addEventListener('click', (event)=> {
+      OpenSide.classList.toggle('act');
+      nav.classList.toggle('act');
+      blur.classList.toggle('act');
+    })
+    
+    const navLinks = Array.from(document.querySelectorAll('.links button'))
+    
+    navLinks.forEach(link => {
+      link.addEventListener('click', (event)=> {
+        OpenSide.classList.toggle('act');
+        nav.classList.toggle('act');
+        blur.classList.toggle('act');
+      })
+    })
+  </script>
+</body>
+
+</html>
