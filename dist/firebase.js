@@ -195,26 +195,26 @@ export const insert = (arr, index, newItem) => [
 
 const UpComming = [
   '',
-  'Horimiya',
-  'Kaiju No. 8',
-  'Spy X Family',
   'Golden Kamuy',
   'Vagabond',
+  'Spy X Family',
+  'Kaiju No. 8',
+  'Horimiya',
+  '',
   'Kaguya-sama: Love is War',
   'Pumpkin Night',
   'Golem Hearts',
-  'Death Note Tokubetsu Yomikiri',
 ];
 const Mangalist = [
   '',
   'Tate No Yuusha No Nariagari',
-  'Vinland Saga',
   'Golden Kamuy',
   'Vagabond',
+  'Spy X Family',
+  'Kaiju No. 8',
+  'Horimiya',
 //  'Kaguya-sama: Love is War',
-//  'Kaiju No. 8',
-//  'Spy X Family',
-//  'Horimiya',
+  '',
 
   'Ao No Exorcist',
   'Black Clover',
@@ -231,4 +231,5 @@ const Mangalist = [
   'Record Of Ragnarok',
   'The Four Knights of Apocalypse',
   'Tokyo Revengers',
+  'Vinland Saga',
 ];
