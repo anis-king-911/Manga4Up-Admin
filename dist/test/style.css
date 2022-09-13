@@ -1,0 +1,107 @@
+* {
+  font-family: sans-serif;
+  box-sizing: border-box;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+html {
+  font-size: 50%;
+  overflow-x: hidden;
+  scroll-padding-top: 5rem;
+  scroll-behavior: smooth;
+}
+
+[data-state] {
+  display: flex;
+}
+
+.show {
+  display: none;
+}
+
+.container {
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: repeat(1, 1fr);
+  width: 100%;
+  margin: 10px auto 0;
+}
+
+.FilterBtns button.active {
+  background: #000;
+  color: #fff;
+}
+
+article {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem .5rem;
+  border: .1rem solid #444;
+  border-radius: 4px;
+  position: relative;
+}
+
+article .Options {
+  position: absolute;
+  top: -6%;right: 2%;
+  z-index: 1;
+}
+
+article .Options span {
+  font-size: 10px;
+  font-weight: bolder;
+  background: rgba(84, 201, 255, 1);
+  padding: 4px 6px;
+  border-radius: 4px;
+  margin: 0px 2px;
+}
+
+article .Cover img {
+  height: 15rem;
+  border-radius: 4px;
+  border: .1rem solid #444;
+}
+
+article .Content {
+  width: 100%;
+}
+
+article .Content h3 {
+  font-size: 2.6rem;
+  color: #444;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+article .Content .Info {
+  font-size: 2rem;
+  color: #444;
+  padding-bottom: .5rem;
+
+  width: 100%;
+}
+
+article .Content .Info span {
+  font-size: 1.5rem;
+  color: #666;
+}
+
+article .Actions a {
+  margin-top: 1rem;
+  display: inline-block;
+  padding: .6rem 2rem;
+  border-radius: .5rem;
+  color: #fff;
+  background: #27ae60;
+  font-size: 1.7rem;
+  cursor: pointer;
+  font-weight: 500;
+  border: .1rem solid #444;
+}
+
+article .Actions a:hover {
+  background: #219150;
+}

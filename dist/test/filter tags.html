@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<style>
+[data-state] {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.btn.active {
+  background-color: #666;
+  color: white;
+}
+</style>
+<body>
+
+<h2>Filter DIV Elements</h2>
+
+<div id="myBtnContainer">
+  <button class="btn active">ShowAll</button>
+  <button class="btn">Published</button>
+  <button class="btn">Finished</button>
+</div>
+
+<div class="container">
+  <div data-state="Published">boruto</div>
+  <div data-state="Finished Published">naruto</div>
+  <div data-state="Finished">aot</div>
+  <div data-state="Published">bnha</div>
+  <div data-state="Finished">nnt</div>
+</div>
+
+<script type="module">
+
+const books = document.querySelectorAll('[data-state]');
+const FilterBtns = document.querySelectorAll('.btn');
+
+function filterSelection(c) {
+  if(c === 'ShowAll') c = ''
+  books.forEach((book) => {
+    book.classList.remove('show');
+    if(book.getAttribute('data-state').indexOf(c)>-1) book.classList.add('show');
+  })
+}
+
+FilterBtns.forEach((Btn) => {
+  Btn.addEventListener('click', (event) => {
+    FilterBtns.forEach(Btn => Btn.classList.remove('active'));
+    Btn.classList.add('active');
+    
+    filterSelection(event.target.textContent)
+  })
+})
+
+window.onload = () => {filterSelection('ShowAll')}
+window.filterSelection = filterSelection;
+</script>
+
+</body>
+</html>

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>New Template Test</title>
+  <title>Manga4Up | Admin</title>
 
   <link rel="stylesheet" href="/dist/style.css">
   <script src="/dist/modules/Alpinejs.min@3.10.2.js" defer></script>
@@ -108,6 +108,7 @@
           <select name="MangaState" id="MangaState">
             <option value="Publishing">Publishing</option>
             <option value="Finished">Finished</option>
+            <option value="On Hiatus">On Hiatus</option>
           </select>
         </div>
         <div class="FormGroup">
@@ -117,6 +118,10 @@
         <div class="FormGroup">
           <label for="LastCover">Last Cover</label>
           <input type="url" name="LastCover" id="LastCover" placeholder="Last Cover..." />
+        </div>
+        <div class="FormGroup">
+          <label for="Options">Options</label>
+          <div class="Options"></div>
         </div>
         <div class="FormGroup">
           <button type="submit">Upload</button>
@@ -159,8 +164,17 @@
         <tbody class="EditRecent"></tbody>
       </table>
       
+      <span class="NPPContainer">
+        <button type="button" class="LMP">LOAD MORE</button>
+        <button type="button" class="LLP" disabled>LOAD LESS</button>
+      </span>
+      
     </span>
     <span x-show="openTab === 6" x-cloak>
+      
+      <div class="SearcContainer">
+        <input type="text" class="SearchByTitle" placeholder="Searc By Title ..."/>
+      </div>
       
       <table>
         <thead>
