@@ -50,6 +50,10 @@ nav {
   font-size: 18px;
 }
 
+.active {
+  background: red;
+}
+
 .OpenSide {
   position: fixed;
   top: 0;left: 0;

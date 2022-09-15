@@ -1,118 +1,170 @@
 import {
-  database, storage, Manga4Up, List, size,
-  ref, child, onValue, set, push, update, remove, 
+  database, Manga4Up, List, size,
+  ref, child, onValue, remove, 
   query, orderByChild, limitToLast, endBefore,
-  cloud, listAll, getDownloadURL,
-  uploadBytesResumable,
+  startAfter, limitToFirst
 } from '/dist/firebase.js';
 
-let array = null, firstKey = null;
+let firstKey = null, lastKey = null;
 
-export default class Retrieve {
-  static Recent(Container) {
-    const databaseRef = ref(database, Manga4Up);
-    const databaseOrder = query(databaseRef, orderByChild('Volume Data/CreatedAt'));
-    const databaseLimit = query(databaseOrder, limitToLast(size));
-    
-    onValue(databaseLimit, (snapshot)=> {
-      Container.innerHTML = '';
-      snapshot.forEach(snap => {
-        const key = snap.key;
-        const value = snap.val();
-        const data = value['Volume Data'];
-        
-        Container.innerHTML =
-          `
-        <tr>
-          <td>
-            <img src="${data['Volume Cover']}" alt="${data['Manga Title']}:${data['Volume Number']}" />
-          </td>
-          <td>
-            ${data['Manga Title']}: ${data['Volume Number']} <br />
-            File Size: ${data['File Size']} Mb <br />
-            Chapters: ${data['Chapters Count'].From}=>${data['Chapters Count'].To} <br />
-            ID: ${data.ID} <br />
-            Key: ${key}
-          </td>
-          <td>
-            <button type="button" data-key="${key}" onclick="DeleteVolume(this)">Delete</button>
-            <a href="/edit.html#/recent#/${key}">Edit</a>
-          </td>
-        </tr>
-          `
-        + Container.innerHTML;
-      })
-      firstKey = Object.values(snapshot.val())[0]['Volume Data']['CreatedAt'];
-      //console.log(firstKey);
+////////////////////////////////////////////////
+
+const recentTableRow = (key, data) => {
+  let div;
+
+  div = `
+  <tr>
+    <td>
+      <img src="${data['Volume Cover']}" alt="${data['Manga Title']}:${data['Volume Number']}" />
+    </td>
+    <td>
+      ${data['Manga Title']}: ${data['Volume Number']} <br />
+      File Size: ${data['File Size']} Mb <br />
+      Chapters: ${data['Chapters Count'].From}=>${data['Chapters Count'].To} <br />
+      ID: ${data.ID} <br />
+      Key: ${key}
+    </td>
+    <td>
+      <button type="button" data-key="${key}" onclick="DeleteVolume(this)">Delete</button>
+      <a href="/edit.html#/recent#/${key}">Edit</a>
+    </td>
+  </tr>
+    `
+
+  return div;
+}
+const listTableRow = (key, data) => {
+  let div;
+
+  div = `
+  <tr>
+    <td>
+      <img src="${data.Cover}" alt="${data.Title}" />
+    </td>
+    <td>
+      <span>${data.Title}: ${data.Count}</span> <br />
+      Manga State: ${data.State} <br />
+    </td>
+    <td>
+      <button type="button" data-key="${key}" onclick="DeleteManga(this)">Delete</button>
+      <a href="/edit.html#/list#/${key}">Edit</a>
+    </td>
+  </tr>
+    `;
+
+  return div;
+}
+const blogTableRow = (key, data) => {
+  let div;
+
+  div = `
+  <tr>
+    <td>
+      <img src="${data.Image}" alt="${data.Title}" />
+    </td>
+    <td>
+      <span>${data.Title}</span> <br />
+      ${data.Content.slice(0,20)}... <br />
+    </td>
+    <td>
+      <button type="button" data-key="${key}" onclick="DeleteBlog(this)">Delete</button>
+      <a href="/edit.html#/blog#/${key}">Edit</a>
+    </td>
+  </tr>
+  `;
+
+  return div;
+}
+
+////////////////////////////////////////////////
+
+function RetrieveRecent(Container) {
+  const databaseRef = ref(database, Manga4Up);
+  const databaseOrder = query(databaseRef, orderByChild('Volume Data/CreatedAt'));
+  const databaseLimit = query(databaseOrder, limitToLast(size));
+  
+  onValue(databaseLimit, (snapshot)=> {
+    Container.innerHTML = '';
+    snapshot.forEach(snap => {
+      const key = snap.key;
+      const value = snap.val();
+      const data = value['Volume Data'];
+      
+      Container.innerHTML =
+        recentTableRow(key, data) +
+      Container.innerHTML;
     })
-  }
-  static LMD(Container) {
-    // LMD => load more data
-    const databaseRef = ref(database, Manga4Up);
-    const databaseOrder = query(databaseRef, orderByChild('Volume Data/CreatedAt'));
-    const databaseStart = query(databaseOrder, endBefore(firstKey));
-    const databaseLimit = query(databaseStart, limitToLast(size));
-    
-    onValue(databaseLimit, (snapshot)=> {
-      Container.innerHTML = '';
-      snapshot.forEach(snap => {
-        const key = snap.key;
-        const value = snap.val();
-        const data = value['Volume Data'];
-        
-        Container.innerHTML =
-          `
-        <tr>
-          <td>
-            <img src="${data['Volume Cover']}" alt="${data['Manga Title']}:${data['Volume Number']}" />
-          </td>
-          <td>
-            ${data['Manga Title']}: ${data['Volume Number']} <br />
-            File Size: ${data['File Size']} Mb <br />
-            Chapters: ${data['Chapters Count'].From}=>${data['Chapters Count'].To} <br />
-            ID: ${data.ID} <br />
-            Key: ${key}
-          </td>
-          <td>
-            <button type="button" data-key="${key}" onclick="DeleteVolume(this)">Delete</button>
-            <a href="/edit.html#/recent#/${key}">Edit</a>
-          </td>
-        </tr>
-          `
-        + Container.innerHTML;
-      })
-      firstKey = Object.values(snapshot.val())[0]['Volume Data']['CreatedAt'];
+    firstKey = Object.values(snapshot.val())[0]['Volume Data']['CreatedAt'];
+    lastKey = Object.values(snapshot.val()).pop()['Volume Data']['CreatedAt'];
+  })
+}
+function RetrieveLoadMore(Container) {
+  const databaseRef = ref(database, Manga4Up);
+  const databaseOrder = query(databaseRef, orderByChild('Volume Data/CreatedAt'));
+  const databaseStart = query(databaseOrder, endBefore(firstKey));
+  const databaseLimit = query(databaseStart, limitToLast(size));
+
+  onValue(databaseLimit, (snapshot)=> {
+    Container.innerHTML = '';
+    snapshot.forEach(snap => {
+      const key = snap.key;
+      const value = snap.val();
+      const data = value['Volume Data'];
+      
+      Container.innerHTML =
+        recentTableRow(key, data) +
+      Container.innerHTML;
     })
-  }
-  static List(Container) {
-    const databaseRef = ref(database, List);
-    const databaseOrder = query(databaseRef, orderByChild('Title'));
-    
-    onValue(databaseOrder, (snapshot)=> {
-      Container.innerHTML = '';
-      snapshot.forEach(snap => {
-        const key = snap.key;
-        const data = snap.val();
-        
-        Container.innerHTML +=
-          `
-        <tr>
-          <td>
-            <img src="${data.Cover}" alt="${data.Title}" />
-          </td>
-          <td>
-            <span>${data.Title}: ${data.Count}</span> <br />
-            Manga State: ${data.State} <br />
-          </td>
-          <td>
-            <button type="button" data-key="${key}" onclick="DeleteManga(this)">Delete</button>
-            <a href="/edit.html#/list#/${key}">Edit</a>
-          </td>
-        </tr>
-          `;
-      })
+    firstKey = Object.values(snapshot.val())[0]['Volume Data']['CreatedAt'];
+    lastKey = Object.values(snapshot.val()).pop()['Volume Data']['CreatedAt'];
+  })
+}
+function RetrieveLoadLess(Container) {
+  const databaseRef = ref(database, Manga4Up);
+  const databaseOrder = query(databaseRef, orderByChild('Volume Data/CreatedAt'));
+  const databaseStart = query(databaseOrder, startAfter(lastKey));
+  const databaseLimit = query(databaseStart, limitToFirst(size));
+
+  onValue(databaseLimit, (snapshot)=> {
+    Container.innerHTML = '';
+    snapshot.forEach(snap => {
+      const key = snap.key;
+      const value = snap.val();
+      const data = value['Volume Data'];
+      
+      Container.innerHTML =
+        recentTableRow(key, data) +
+      Container.innerHTML;
     })
-  }
+    firstKey = Object.values(snapshot.val())[0]['Volume Data']['CreatedAt'];
+    lastKey = Object.values(snapshot.val()).pop()['Volume Data']['CreatedAt'];
+  })
+}
+function RetrieveList(Container) {
+  const databaseRef = ref(database, List);
+  const databaseOrder = query(databaseRef, orderByChild('Title'));
+  
+  onValue(databaseOrder, (snapshot)=> {
+    Container.innerHTML = '';
+    snapshot.forEach(snap => {
+      const key = snap.key;
+      const data = snap.val();
+      
+      Container.innerHTML += listTableRow(key, data);
+    })
+  })
+}
+function RetrieveBlogs(Container) {
+  const databaseRef = ref(database, 'blog/');
+
+  onValue(databaseRef, (snapshot) => {
+    snapshot.forEach((snap) => {
+      const key = snap.key;
+      const data = snap.val();
+
+      Container.innerHTML += blogTableRow(key, data);
+    })
+  })
 }
 
 ////////////////////////////////////////////////
@@ -166,3 +218,9 @@ function DeleteManga(event) {
 
 window.DeleteVolume = DeleteVolume;
 window.DeleteManga = DeleteManga;
+
+////////////////////////////////////////////////
+
+export {
+  RetrieveRecent, RetrieveLoadMore, RetrieveLoadLess, RetrieveList, RetrieveBlogs
+}

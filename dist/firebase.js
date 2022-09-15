@@ -1,20 +1,22 @@
+const firebaseVersion = '9.9.4';
+
 import {
   initializeApp
-} from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
+} from "https://www.gstatic.com/firebasejs/9.9.4/firebase-app.js";
 import {
   getDatabase, ref, child, onValue,
   set, push, update, remove,
   query, orderByChild, limitToLast,
-  endBefore,
-} from "https://www.gstatic.com/firebasejs/9.8.3/firebase-database.js";
+  endBefore, startAfter, limitToFirst
+} from "https://www.gstatic.com/firebasejs/9.9.4/firebase-database.js";
 import {
   getStorage, ref as cloud, listAll,
   uploadBytesResumable, getDownloadURL
-} from "https://www.gstatic.com/firebasejs/9.8.3/firebase-storage.js";
+} from "https://www.gstatic.com/firebasejs/9.9.4/firebase-storage.js";
 import {
   getAuth, signInWithEmailAndPassword,
   onAuthStateChanged, signOut
-} from "https://www.gstatic.com/firebasejs/9.8.3/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/9.9.4/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAwI_lwV52VuKJYjeSID811WEv5u2AF70w",
@@ -31,12 +33,12 @@ const database = getDatabase(app);
 const storage = getStorage(app);
 const auth = getAuth(app);
 
-let Manga4Up = 'Manga4Up/', List = 'List/', size = 10;
+let Manga4Up = 'Manga4Up/', List = 'List/', size = 3;
 
 export {
   database, storage, Manga4Up, List, size, Mangalist, UpComming, Options,
   ref, child, onValue, set, push, update, remove, 
-  query, orderByChild, limitToLast, endBefore,
+  query, orderByChild, limitToLast, endBefore, startAfter, limitToFirst,
   cloud, listAll, getDownloadURL,
   uploadBytesResumable,
 }

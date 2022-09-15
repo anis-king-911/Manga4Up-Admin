@@ -1,6 +1,4 @@
-import Upload from '/dist/src/Upload.js';
 import Update from '/dist/src/Update.js';
-import Retrieve from '/dist/src/Retrieve.js';
 
 import {
   Mangalist, UpComming, SignIn, AuthState,
@@ -22,6 +20,7 @@ const UploadBlog = document.querySelector('.UploadBlog');
 
 const EditRecent = document.querySelector('.EditRecent');
 const EditList = document.querySelector('.EditList');
+const EditBlogs = document.querySelector('.EditBlogs')
 
 const UpdateVolume = document.querySelector('.UpdateVolume');
 const UpdateManga = document.querySelector('.UpdateManga');
@@ -31,10 +30,11 @@ const SoloManga = document.querySelector('.SoloManga');
 
 const SearchByTitle = document.querySelector('.SearchByTitle');
 const LoadMore = document.querySelector('.LMP');
+const LoadLess = document.querySelector('.LLP');
 
 window.onload = ()=> {
   if(WindowPATH === '/index.html' || WindowPATH === '/') {
-    
+
     GetID(UploadVolume)
 
     SignInForm.addEventListener('submit', (event)=> {
@@ -52,9 +52,8 @@ window.onload = ()=> {
     UploadVolume.addEventListener('submit', (event)=> {
       event.preventDefault();
 
-      let UrlArray =  UploadVolume.VolumeCover.value.split('/');
-      let Result = insert(UrlArray, 4, 'tr:w-150');
-      let NewUrl = `${Result[0]}/${Result[1]}/${Result[2]}/${Result[3]}/${Result[4]}/${Result[5]}/${Result[6]}/`;
+      let UrlArray =  UploadVolume.VolumeCover.value;
+      let NewUrl = insert(UrlArray.split('/'), 4, 'tr:w-150').join('/');
       
       const data = {
         'ID': UploadVolume.querySelector('em').textContent,
@@ -73,16 +72,19 @@ window.onload = ()=> {
         'CreatedAt': Number(Date.now())
       }
 
-      Upload.Volume(data);
-      setTimeout(()=> {UploadVolume.reset()}, 600);
+      import('/dist/src/Upload.js').then((modules) => {
+        const { UploadVolumeFunc } = modules;
+
+        UploadVolumeFunc(data);
+        setTimeout(()=> {UploadVolume.reset()}, 600);
+      })
     })
     
     UploadManga.addEventListener('submit', (event)=> {
       event.preventDefault();
       
-      let UrlArray =  UploadManga.LastCover.value.split('/');
-      let Result = insert(UrlArray, 4, 'tr:w-150');
-      let NewUrl = `${Result[0]}/${Result[1]}/${Result[2]}/${Result[3]}/${Result[4]}/${Result[5]}/${Result[6]}/`;
+      let UrlArray =  UploadManga.LastCover.value;
+      let NewUrl = insert(UrlArray.split('/'), 4, 'tr:w-150').join('/');
       
       const data = {
         'Manga Title': UploadManga.MangaTitle.value,
@@ -93,14 +95,18 @@ window.onload = ()=> {
         'CreatedAt': Number(Date.now())
       }
       
-      Upload.Manga(data);
-      setTimeout(()=> {UploadManga.reset()}, 600);
+      import('/dist/src/Upload.js').then((modules) => {
+        const { UploadMangaFunc } = modules;
+
+        UploadMangaFunc(data);
+        setTimeout(()=> {UploadManga.reset()}, 600);
+      })
     })
     
     UploadBlog.addEventListener('submit', (event) => {
       event.preventDefault();
       
-     const ProgressBar = UploadBlog.progress.value;
+     const ProgressBar = UploadBlog.querySelector('#progress');
       
       const data = {
         Title: UploadBlog.BlogTitle.value,
@@ -109,13 +115,24 @@ window.onload = ()=> {
         CreatedAt: Number(Date.now())
       }
       
-      Upload.Blog(data, ProgressBar);
-      setTimeout(()=> {UploadBlog.reset()}, 600);
+      import('/dist/src/Upload.js').then((modules) => {
+        const { UploadBlogFunc } = modules;
+
+        UploadBlogFunc(data, ProgressBar);
+        setTimeout(()=> {UploadBlog.reset()}, 600);
+      })
     })
     
+    import('/dist/src/Retrieve.js').then((modules) => {
+      const {
+        RetrieveRecent, RetrieveList, RetrieveBlogs
+      } = modules;
+
+      RetrieveRecent(EditRecent);
+      RetrieveList(EditList);
+      RetrieveBlogs(EditBlogs);
+    })
     
-    Retrieve.Recent(EditRecent);
-    Retrieve.List(EditList);
     AuthState(UserContainer, SignInForm);
     
     Mangalist.map(manga => {
@@ -146,9 +163,24 @@ window.onload = ()=> {
       TableSearch();
     })
     
-    LoadMore.addEventListener('click', () => {
-      Retrieve.LMD(EditRecent);
+    /* Pagination Start */
+
+    LoadMore.addEventListener('click', async () => {
+      await import('/dist/src/Retrieve.js').then((modules) => {
+        const { RetrieveLoadMore } = modules;
+  
+        RetrieveLoadMore(EditRecent);
+      })
     })
+    LoadLess.addEventListener('click', async () => {
+      await import('/dist/src/Retrieve.js').then((modules) => {
+        const { RetrieveLoadLess } = modules;
+  
+        RetrieveLoadLess(EditRecent);
+      })
+    })
+
+    /* Pagination End */
     
     MangaSelectionList(SelectManga);
   } else if(WindowPATH === '/edit.html' && WindowMODE === '/recent') {
@@ -162,9 +194,8 @@ window.onload = ()=> {
       let NewUrl;
 
       if(UpdateVolume.VolumeCover.value.match('tr:w-150') === null) {
-        let UrlArray =  UpdateVolume.VolumeCover.value.split('/');
-        let Result = insert(UrlArray, 4, 'tr:w-150');
-        NewUrl = `${Result[0]}/${Result[1]}/${Result[2]}/${Result[3]}/${Result[4]}/${Result[5]}/${Result[6]}/`;  
+        let OldUrl =  UpdateVolume.VolumeCover.value;
+        NewUrl = insert(OldUrl.split('/'), 4, 'tr:w-150').join('/');
       } else {
         NewUrl = UpdateVolume.VolumeCover.value;
       }
@@ -209,9 +240,8 @@ window.onload = ()=> {
       let NewUrl;
 
       if(UpdateManga.LastCover.value.match('tr:w-150') === null) {
-        let UrlArray =  UpdateManga.LastCover.value.split('/');
-        let Result = insert(UrlArray, 4, 'tr:w-150');
-        NewUrl = `${Result[0]}/${Result[1]}/${Result[2]}/${Result[3]}/${Result[4]}/${Result[5]}/${Result[6]}/`;  
+        let OldUrl = UpdateManga.LastCover.value;
+        NewUrl = insert(OldUrl.split('/'), 4, 'tr:w-150').join('/');
       } else {
         NewUrl = UpdateManga.LastCover.value;
       }
