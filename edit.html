@@ -82,6 +82,28 @@
       <button type="submit">Upload</button>
     </div>
   </form>
+  
+  <form class="UpdateBlog">
+    <div class="FormGroup">
+      <label for="BlogTitle">BlogTitle</label>
+      <input type="text" name="BlogTitle" id="BlogTitle" placeholder="Blog Title..." />
+    </div>
+    <div class="FormGroup">
+      <label for="BlogContent">Blog Content</label>
+      <textarea name="BlogContent" id="BlogContent" placeholder="Blog Content..."></textarea>
+    </div>
+    <div class="FormGroup">
+      <label for="BlogCover">Blog Cover</label>
+      <input type="file" name="BlogCover" id="BlogCover" accept="image/*" />
+    </div>
+    <div class="FormGroup">
+      <progress max="100" value="0" id="progress"></progress>
+      <button type="submit">Upload</button>
+    </div>
+    <div class="FormGroup">
+      <img id="BlogOldCover" src="" alt="" width="100%" />
+    </div>
+  </form>
 
 </body>
 
