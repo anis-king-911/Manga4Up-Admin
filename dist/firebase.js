@@ -129,6 +129,11 @@ export function getOptions(form) {
 const UpComming = [
   '',
   'Horimiya',
+  'Berserk',
+  'Fairy Tail',
+  'Fairy Tail Zero',
+  'Kiseijuu',
+  'Monster',
   '',
   'Kaguya-sama: Love is War',
   'Pumpkin Night',
@@ -136,12 +141,16 @@ const UpComming = [
 ];
 const Mangalist = [
   '',
-  'Tate No Yuusha No Nariagari',
   'Golden Kamuy',
   'Vagabond',
   'Spy X Family',
   'Kaiju No. 8',
   'Horimiya',
+  'Berserk',
+  'Fairy Tail',
+  'Fairy Tail Zero',
+  'Kiseijuu',
+  'Monster',
 //  'Kaguya-sama: Love is War',
   '',
 
@@ -158,6 +167,7 @@ const Mangalist = [
   'Noragami',
   'One Punch Man',
   'Record Of Ragnarok',
+  'Tate No Yuusha No Nariagari',
   'The Four Knights of Apocalypse',
   'Tokyo Revengers',
   'Vinland Saga',
