@@ -34,7 +34,7 @@ const database = getDatabase(app);
 const storage = getStorage(app);
 const auth = getAuth(app);
 
-let Manga4Up = 'Manga4Up/', List = 'List/', size = 3;
+let Manga4Up = 'Manga4Up/', List = 'List/', size = 6;
 
 export {
   database, storage, Manga4Up, List, size, Mangalist, UpComming, Options,
