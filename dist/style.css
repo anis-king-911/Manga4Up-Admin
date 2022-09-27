@@ -208,6 +208,13 @@ td span {
   align-items: center;
   flex-direction: column;
   gap: 4px;
+  border: 2px solid #444;
+  border-radius: 6px;
+  padding: 10px;
+}
+.UserContainer img {
+  border-radius: 50%;
+  border: 1px solid #444;
 }
 .UserContainer span {
   text-align: center;
