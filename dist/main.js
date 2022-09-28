@@ -1,7 +1,6 @@
 import {
-  Mangalist, UpComming, GetMangaList,
-  MangaSelectionList, insert,
-  GetID, TableSearch, Options, getOptions,
+  Mangalist, UpComming, insert, AvailableMangaList,
+  GetID, TableSearch, Options, getOptions, TableFilter,
 } from '/dist/firebase.js';
 
 const WindowPATH = window.location.pathname;
@@ -27,6 +26,7 @@ const SelectManga = document.querySelector('#SelectManga');
 const SoloManga = document.querySelector('.SoloManga');
 
 const SearchByTitle = document.querySelector('.SearchByTitle');
+const SearchByState = document.querySelector('.SearchByState');
 const LoadMore = document.querySelector('.LMP');
 const LoadLess = document.querySelector('.LLP');
 
@@ -162,6 +162,11 @@ window.onload = ()=> {
       TableSearch();
     })
     
+    SearchByState.addEventListener('change', (event) => {
+      TableFilter(SearchByState.value)
+    })
+    TableFilter(SearchByState.value)
+
     /* Pagination Start */
 
     LoadMore.addEventListener('click', async () => {
@@ -175,12 +180,12 @@ window.onload = ()=> {
 
     /* Pagination End */
     
-    MangaSelectionList(SelectManga);
+    AvailableMangaList(SelectManga);
   } else if(WindowPATH === '/edit.html' && WindowMODE === '/recent') {
     
     UpdateManga.style.display = 'none';
     UpdateBlog.style.display = 'none';
-    GetMangaList(UpdateVolume);
+    AvailableMangaList(UpdateVolume.MangaTitle);
     
     import('/dist/src/Edit.js').then((modules) => {
       const { GetVolumeData } = modules;
@@ -222,7 +227,7 @@ window.onload = ()=> {
     
     UpdateVolume.style.display = 'none';
     UpdateBlog.style.display = 'none';
-    GetMangaList(UpdateManga);
+    AvailableMangaList(UpdateManga.MangaTitle);
     
     import('/dist/src/Edit.js').then((modules) => {
       const { GetMangaData } = modules;

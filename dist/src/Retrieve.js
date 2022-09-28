@@ -22,8 +22,8 @@ const recentTableRow = (key, data) => {
       ${data['Manga Title']}: ${data['Volume Number']} <br />
       File Size: ${data['File Size']} Mb <br />
       Chapters: ${data['Chapters Count'].From}=>${data['Chapters Count'].To} <br />
-      ID: ${data.ID} <br />
-      Key: ${key}
+      Key: ${key} <br />
+      ID: ${data.ID}
     </td>
     <td>
       <button type="button" data-key="${key}" onclick="DeleteVolume(this)">Delete</button>
@@ -38,13 +38,14 @@ const listTableRow = (key, data) => {
   let div;
 
   div = `
-  <tr>
+  <tr data-state="${data.State}">
     <td>
       <img src="${data.Cover}" alt="${data.Title}" />
     </td>
     <td>
       <span>${data.Title}: ${data.Count}</span> <br />
       Manga State: ${data.State} <br />
+      Key: ${key}
     </td>
     <td>
       <button type="button" data-key="${key}" onclick="DeleteManga(this)">Delete</button>

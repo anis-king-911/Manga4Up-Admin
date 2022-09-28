@@ -34,7 +34,7 @@ const database = getDatabase(app);
 const storage = getStorage(app);
 const auth = getAuth(app);
 
-let Manga4Up = 'Manga4Up/', List = 'List/', size = 6;
+let Manga4Up = 'Manga4Up/', List = 'List/', size = 4;
 
 export {
   database, storage, Manga4Up, List, size, Mangalist, UpComming, Options,
@@ -47,31 +47,18 @@ export {
   onAuthStateChanged
 }
 
-export function GetMangaList(form) {
+export function AvailableMangaList(Container) {
   const databaseRef = ref(database, List);
   
   onValue(databaseRef, (snapshot)=> {
     snapshot.forEach((snap)=> {
       const data = snap.val();
       
-      form.querySelector('select').innerHTML +=
+      Container.innerHTML +=
         `<option value="${data.Title}">${data.Title}</option>`;
     })
   })
 }
-export function MangaSelectionList(container) {
-  const databaseRef = ref(database, List);
-  
-  onValue(databaseRef, (snapshot)=> {
-    snapshot.forEach((snap)=> {
-      const data = snap.val();
-      
-      container.innerHTML +=
-        `<option value="${data.Title}">${data.Title}</option>`;
-    })
-  })
-}
-//export 
 
 export function GetID(form) {
   const databaseRef = ref(database, Manga4Up);
@@ -88,13 +75,11 @@ export function GetID(form) {
   })
 }
 
-
 export const insert = (arr, index, newItem) => [
   ...arr.slice(0, index),
   newItem,
   ...arr.slice(index)
 ]
-
 
 export function TableSearch() {
   const inpValue = document.querySelector('.SearchByTitle').value.toUpperCase();
@@ -115,6 +100,16 @@ export function TableSearch() {
   })
 }
 
+export function TableFilter(c) {
+  const books = document.querySelectorAll('[data-state]');
+
+  if(c === 'Show All') c = ''
+  books.forEach((book) => {
+    book.classList.add('show');
+    if(book.getAttribute('data-state').indexOf(c)>-1) book.classList.remove('show');
+  })
+}
+
 export function getOptions(form) {
   const TagsOutput = [];
   for (let i = 0; i < form.length; i++) {
@@ -124,7 +119,6 @@ export function getOptions(form) {
   }
   return TagsOutput;
 }
-
 
 const UpComming = [
   '',
