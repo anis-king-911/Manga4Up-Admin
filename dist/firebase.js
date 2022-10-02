@@ -120,6 +120,27 @@ export function getOptions(form) {
   return TagsOutput;
 }
 
+export function ReverseDate(argument) {
+  let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  
+  let one = new Number(argument);
+  let two = new Date(one);
+  
+  let day = two.getDate();
+  let month = months[two.getMonth()];
+  let year = two.getFullYear();
+  
+  return `${year} ${month} ${day}`;
+}
+
+export function ReverseDate_V2(argument) {
+  let one = new Number(argument);
+  let two = new Date(one);
+  
+  let thre = two.toISOString().split('.')[0];
+  return thre;
+}
+
 const UpComming = [
   '',
   'Horimiya',

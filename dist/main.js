@@ -90,7 +90,8 @@ window.onload = ()=> {
         'Volumes Count': UploadManga.VolumesCount.value,
         'Last Volume': NewUrl,
         'Options': getOptions(UploadManga),
-        'CreatedAt': Number(Date.now())
+        'CreatedAt': Number(Date.now()),
+        'Creation Date': Number(new Date(UploadManga.CreationDate.value).getTime())
       }
       
       const { UploadMangaFunc } = await import('/dist/src/Upload.js');
@@ -262,6 +263,7 @@ window.onload = ()=> {
         'Volumes Count': UpdateManga.VolumesCount.value,
         'Options': getOptions(UpdateManga),
         'Last Volume': NewUrl,
+        'Creation Date': Number(new Date(UpdateManga.CreationDate.value).getTime())
       };
       
       const { UpdateMangaFunc } = await import('/dist/src/Update.js');

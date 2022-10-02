@@ -1,5 +1,5 @@
 import {
-  database, Manga4Up, List, size,
+  database, Manga4Up, List, size, ReverseDate,
   ref, child, onValue, remove, 
   query, orderByChild, limitToLast, endBefore,
   startAfter, limitToFirst, storage,
@@ -45,6 +45,7 @@ const listTableRow = (key, data) => {
     <td>
       <span>${data.Title}: ${data.Count}</span> <br />
       Manga State: ${data.State} <br />
+      Manga Release: ${ReverseDate(data.CreationDate)}<br />
       Key: ${key}
     </td>
     <td>

@@ -36,7 +36,8 @@ function UpdateMangaFunc(id, data) {
     State: data['Manga State'],
     Count: data['Volumes Count'],
     Cover: data['Last Volume'],
-    Options: data['Options']
+    Options: data['Options'],
+    CreationDate: data['Creation Date']
   }).then(() => {
     console.log('Manga Updated Successfully');
     setTimeout(() => {window.location.assign('/')}, 600);

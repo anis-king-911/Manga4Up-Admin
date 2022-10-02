@@ -38,7 +38,8 @@ function UploadMangaFunc(data) {
     Count: data['Volumes Count'],
     Cover: data['Last Volume'],
     Options: data['Options'],
-    Time: Number(data['CreatedAt'])
+    Time: Number(data['CreatedAt']),
+    CreationDate: Number(data['Creation Date'])
   }).then(() => {
     console.log('Manga Add Successfully');
   }).catch((error) => {

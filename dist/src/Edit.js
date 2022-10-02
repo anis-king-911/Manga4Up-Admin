@@ -1,5 +1,5 @@
 import {
-  database, storage, Manga4Up, List, size,
+  database, storage, Manga4Up, List, size, ReverseDate_V2,
   ref, child, onValue, set, push, update, remove, 
   query, orderByChild, limitToLast,
   cloud, listAll, getDownloadURL,
@@ -43,6 +43,7 @@ function GetMangaData(id, form) {
       form.VolumesCount.value = data.Count;
       form.MangaState.value = data.State;
       form.LastCover.value = data.Cover;
+      form.CreationDate.value = ReverseDate_V2(data.CreationDate);
       
       if(!data.Options) return
 

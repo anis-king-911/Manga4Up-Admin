@@ -16,7 +16,7 @@
   <script src="/dist/main.js" type="module"></script>
 </head>
 
-<body x-data="{ openTab: 1 }">
+<body x-data="{ openTab: 6 }">
   
   <button type="button" class="OpenSide">=></button>
   <div class="blur"></div>
@@ -124,6 +124,10 @@
           <input type="url" name="LastCover" id="LastCover" placeholder="Last Cover..." />
         </div>
         <div class="FormGroup">
+          <label for="CreationDate">Creation Date</label>
+          <input type="datetime-local" name="CreationDate" id="CreationDate" placeholder="Creation Date..." />
+        </div>
+        <div class="FormGroup">
           <label for="Options">Options</label>
           <div class="Options"></div>
         </div>
@@ -184,6 +188,12 @@
           <option value="Finished">Finished</option>
           <option value="On Hiatus">On Hiatus</option>
         </select>
+      </div>
+      <div class="FilterContainer">
+        <button>A-Z</button>
+        <button>Z-A</button>
+        <button>Release Date</button>
+        <button>Sherd Date</button>
       </div>
       
       <table>
