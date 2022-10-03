@@ -173,6 +173,7 @@ const Mangalist = [
   'Black Clover',
   'Boku No Hero Academia',
   'Boruto NNG',
+  'Chainsaw Man',
   'Dragon Ball Super',
   'Edens Zero',
   'Fairy Tail 100 Years Quest',
