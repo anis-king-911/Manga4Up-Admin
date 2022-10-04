@@ -143,11 +143,7 @@ export function ReverseDate_V2(argument) {
 
 const UpComming = [
   '',
-  'Horimiya',
-  'Berserk',
   'Fairy Tail',
-  'Fairy Tail Zero',
-  'Kiseijuu',
   'Monster',
   '',
   'Kaguya-sama: Love is War',
@@ -162,7 +158,6 @@ const Mangalist = [
   'Berserk',
   'Kiseijuu',
   'Fairy Tail',
-  'Fairy Tail Zero',
   'Monster',
 //  'Kaguya-sama: Love is War',
   '',
