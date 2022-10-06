@@ -30,6 +30,8 @@ const SearchByState = document.querySelector('.SearchByState');
 const LoadMore = document.querySelector('.LMP');
 const LoadLess = document.querySelector('.LLP');
 
+const SortingBtns = document.querySelectorAll('[data-sort]');
+
 window.onload = ()=> {
   if(WindowPATH === '/index.html' || WindowPATH === '/') {
 
@@ -120,12 +122,32 @@ window.onload = ()=> {
     
     import('/dist/src/Retrieve.js').then((modules) => {
       const {
-        RetrieveRecent, RetrieveList, RetrieveBlogs
+        RetrieveRecent, RetrieveList_one, RetrieveList_two, RetrieveBlogs
       } = modules;
 
       RetrieveRecent(EditRecent);
-      RetrieveList(EditList);
+      RetrieveList_one(EditList, 'Title');
       RetrieveBlogs(EditBlogs);
+
+      SortingBtns[0].classList.add('active')
+      SortingBtns.forEach((btn) => {
+        btn.addEventListener('click', (event) => {
+          SortingBtns.forEach(btn => btn.classList.remove('active'))
+          btn.classList.add('active')
+
+          let SortingType = btn.getAttribute('data-sort');
+          let rev = btn.textContent.split(' ').at(0)
+
+          if(btn.textContent.match('>')) {
+            RetrieveList_one(EditList, SortingType);
+            btn.textContent = `${rev} <`;
+          } else {
+            RetrieveList_two(EditList, SortingType);
+            btn.textContent = `${rev} >`;
+          }
+
+        })
+      })
     })
     
     import('/dist/src/Authentication.js').then((modules) => {

@@ -16,7 +16,7 @@
   <script src="/dist/main.js" type="module"></script>
 </head>
 
-<body x-data="{ openTab: 1 }">
+<body x-data="{ openTab: 8 }">
   
   <button type="button" class="OpenSide">=></button>
   <div class="blur"></div>
@@ -173,8 +173,8 @@
       </table>
       
       <span class="NPPContainer">
-        <button type="button" class="LMP">LOAD MORE</button>
-        <button type="button" class="LLP">LOAD LESS</button>
+        <button type="button" class="LMP"><<<</button>
+        <button type="button" class="LLP">>>></button>
       </span>
       
     </span>
@@ -190,10 +190,10 @@
         </select>
       </div>
       <div class="FilterContainer">
-        <button>A-Z</button>
-        <button>Z-A</button>
-        <button>Release Date</button>
-        <button>Sherd Date</button>
+        <button data-sort="Title">Title ></button>
+        <button data-sort="Time">Time ></button>
+        <button data-sort="Count">Count ></button>
+        <button data-sort="CreationDate">CreationDate ></button>
       </div>
       
       <table>
@@ -226,7 +226,6 @@
     <span x-show="openTab === 8" x-cloak x-transition.delay.500ms>
       
       <div class="FormGroup">
-        <label for="SelectManga">Select Manga</label>
         <select name="SelectManga" id="SelectManga"></select>
       </div>
       

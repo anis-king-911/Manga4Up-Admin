@@ -143,20 +143,6 @@ function RetrieveLoadLess(Container) {
     lastKey = Object.values(snapshot.val()).pop()['Volume Data']['CreatedAt'];
   })
 }
-function RetrieveList(Container) {
-  const databaseRef = ref(database, List);
-  const databaseOrder = query(databaseRef, orderByChild('Title'));
-  
-  onValue(databaseOrder, (snapshot)=> {
-    Container.innerHTML = '';
-    snapshot.forEach(snap => {
-      const key = snap.key;
-      const data = snap.val();
-      
-      Container.innerHTML += listTableRow(key, data);
-    })
-  })
-}
 function RetrieveBlogs(Container) {
   const databaseRef = ref(database, 'blog/');
 
@@ -185,6 +171,41 @@ function RetrieveByTitle(Container, mangaName) {
           recentTableRow(key, data) +
         Container.innerHTML;
       }
+    })
+  })
+}
+
+////////////////////////////////////////////////
+
+function RetrieveList_one(Container, Order) {
+  const databaseRef = ref(database, List);
+  const databaseOrder = query(databaseRef, orderByChild(Order));
+  
+  onValue(databaseOrder, (snapshot)=> {
+    Container.innerHTML = '';
+    
+    snapshot.forEach(snap => {
+      const key = snap.key;
+      const data = snap.val();
+
+      Container.innerHTML += listTableRow(key, data);
+    })
+  })
+}
+function RetrieveList_two(Container, Order) {
+  const databaseRef = ref(database, List);
+  const databaseOrder = query(databaseRef, orderByChild(Order));
+  
+  onValue(databaseOrder, (snapshot)=> {
+    Container.innerHTML = '';
+    
+    snapshot.forEach(snap => {
+      const key = snap.key;
+      const data = snap.val();
+
+      Container.innerHTML =
+        listTableRow(key, data) +
+      Container.innerHTML;
     })
   })
 }
@@ -275,5 +296,6 @@ window.DeleteBlog = DeleteBlog;
 
 export {
   RetrieveRecent, RetrieveLoadMore, RetrieveLoadLess,
-  RetrieveList, RetrieveBlogs, RetrieveByTitle
+  RetrieveList_one, RetrieveBlogs, RetrieveByTitle,
+  RetrieveList_two
 }
