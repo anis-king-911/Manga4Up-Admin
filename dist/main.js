@@ -139,10 +139,10 @@ window.onload = ()=> {
           let rev = btn.textContent.split(' ').at(0)
 
           if(btn.textContent.match('>')) {
-            RetrieveList_one(EditList, SortingType);
+            RetrieveList_two(EditList, SortingType);
             btn.textContent = `${rev} <`;
           } else {
-            RetrieveList_two(EditList, SortingType);
+            RetrieveList_one(EditList, SortingType);
             btn.textContent = `${rev} >`;
           }
 
