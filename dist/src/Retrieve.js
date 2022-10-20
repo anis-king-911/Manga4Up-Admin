@@ -6,7 +6,7 @@ import {
   cloud, listAll, getDownloadURL, deleteObject,
 } from '/dist/firebase.js';
 
-let firstKey = null, lastKey = null;
+let firstKey = null, lastKey = null, lastChild = null;
 
 ////////////////////////////////////////////////
 
@@ -14,7 +14,7 @@ const recentTableRow = (key, data) => {
   let div;
 
   div = `
-  <tr>
+  <tr x-data="{openToEdit : false}">
     <td>
       <img src="${data['Volume Cover']}" alt="${data['Manga Title']}:${data['Volume Number']}" />
     </td>
@@ -22,12 +22,15 @@ const recentTableRow = (key, data) => {
       ${data['Manga Title']}: ${data['Volume Number']} <br />
       File Size: ${data['File Size']} Mb <br />
       Chapters: ${data['Chapters Count'].From}=>${data['Chapters Count'].To} <br />
-      Key: ${key} <br />
       ID: ${data.ID}
     </td>
     <td>
-      <button type="button" data-key="${key}" onclick="DeleteVolume(this)">Delete</button>
-      <a href="/edit.html#/recent#/${key}">Edit</a>
+      <button type="button" data-key="${key}" onclick="DeleteVolume(this)">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      </button>
+      <a href="/edit.html#/recent#/${key}">
+        <button><i class="fa fa-edit" aria-hidden="true"></i></button>
+      </a>
     </td>
   </tr>
     `
@@ -46,11 +49,14 @@ const listTableRow = (key, data) => {
       <span>${data.Title}: ${data.Count}</span> <br />
       Manga State: ${data.State} <br />
       Manga Release: ${ReverseDate(data.CreationDate)}<br />
-      Key: ${key}
     </td>
     <td>
-      <button type="button" data-key="${key}" onclick="DeleteManga(this)">Delete</button>
-      <a href="/edit.html#/list#/${key}">Edit</a>
+      <button type="button" data-key="${key}" onclick="DeleteManga(this)">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      </button>
+      <a href="/edit.html#/list#/${key}">
+        <button><i class="fa fa-edit" aria-hidden="true"></i></button>
+      </a>
     </td>
   </tr>
     `;
@@ -70,8 +76,12 @@ const blogTableRow = (key, data) => {
       ${data.Content.slice(0,20)}... <br />
     </td>
     <td>
-      <button type="button" data-key="${key}" data-img="${data.Image}" onclick="DeleteBlog(this)">Delete</button>
-      <a href="/edit.html#/blog#/${key}">Edit</a>
+      <button type="button" data-key="${key}" data-img="${data.Image}" onclick="DeleteBlog(this)">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      </button>
+      <a href="/edit.html#/blog#/${key}">
+        <button><i class="fa fa-edit" aria-hidden="true"></i></button>
+      </a>
     </td>
   </tr>
   `;
@@ -99,6 +109,10 @@ function RetrieveRecent(Container) {
     })
     firstKey = Object.values(snapshot.val())[0]['Volume Data']['CreatedAt'];
     lastKey = Object.values(snapshot.val()).pop()['Volume Data']['CreatedAt'];
+    
+    lastChild = lastKey;
+    if(lastChild === lastKey) document.querySelector('.LLP').disabled = true;
+    else document.querySelector('.LLP').disabled = false;
   })
 }
 function RetrieveLoadMore(Container) {
@@ -120,6 +134,9 @@ function RetrieveLoadMore(Container) {
     })
     firstKey = Object.values(snapshot.val())[0]['Volume Data']['CreatedAt'];
     lastKey = Object.values(snapshot.val()).pop()['Volume Data']['CreatedAt'];
+    
+    if (lastChild === lastKey) document.querySelector('.LLP').disabled = true;
+    else document.querySelector('.LLP').disabled = false;
   })
 }
 function RetrieveLoadLess(Container) {
@@ -141,6 +158,9 @@ function RetrieveLoadLess(Container) {
     })
     firstKey = Object.values(snapshot.val())[0]['Volume Data']['CreatedAt'];
     lastKey = Object.values(snapshot.val()).pop()['Volume Data']['CreatedAt'];
+    
+    if (lastChild === lastKey) document.querySelector('.LLP').disabled = true;
+    else document.querySelector('.LLP').disabled = false;
   })
 }
 function RetrieveBlogs(Container) {

@@ -1,23 +1,20 @@
-const firebaseVersion = '9.9.4';
+const currentFirebaseVersion = '9.12.1';
 
 import {
   initializeApp
-} from "https://www.gstatic.com/firebasejs/9.9.4/firebase-app.js";
+} from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
 import {
-  getDatabase, ref, child, onValue,
-  set, push, update, remove,
-  query, orderByChild, limitToLast,
-  endBefore, startAfter, limitToFirst
-} from "https://www.gstatic.com/firebasejs/9.9.4/firebase-database.js";
+  getDatabase, ref, child, onValue, set, push, update, remove,
+  query, orderByChild, limitToLast, endBefore, startAfter, limitToFirst
+} from "https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js";
 import {
-  getStorage, ref as cloud, listAll,
-  uploadBytesResumable, getDownloadURL,
-  deleteObject
-} from "https://www.gstatic.com/firebasejs/9.9.4/firebase-storage.js";
+  getStorage, ref as cloud, listAll, uploadBytesResumable,
+  getDownloadURL, deleteObject
+} from "https://www.gstatic.com/firebasejs/9.12.1/firebase-storage.js";
 import {
   getAuth, signInWithEmailAndPassword,
   onAuthStateChanged, signOut
-} from "https://www.gstatic.com/firebasejs/9.9.4/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAwI_lwV52VuKJYjeSID811WEv5u2AF70w",
@@ -34,7 +31,7 @@ const database = getDatabase(app);
 const storage = getStorage(app);
 const auth = getAuth(app);
 
-let Manga4Up = 'Manga4Up/', List = 'List/', size = 4;
+let Manga4Up = 'Manga4Up/', List = 'List/', size = 5;
 
 export {
   database, storage, Manga4Up, List, size, Mangalist, UpComming, Options,
@@ -143,6 +140,10 @@ export function ReverseDate_V2(argument) {
 
 const UpComming = [
   '',
+  'Blue Lock',
+  'Fire Punch',
+  'Tonikaku Kawaii',
+  '',
   'Fairy Tail',
   'Monster',
   '',
@@ -159,6 +160,9 @@ const Mangalist = [
   'Kiseijuu',
   'Fairy Tail',
   'Monster',
+  'Blue Lock',
+  'Fire Punch',
+  'Tonikaku Kawaii',
 //  'Kaguya-sama: Love is War',
   '',
 

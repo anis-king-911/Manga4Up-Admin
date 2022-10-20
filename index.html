@@ -9,14 +9,15 @@
   <title>Manga4Up | Admin</title>
 
   <link rel="icon" href="/dist/admin.png" type="image/png" />
-  <link rel="stylesheet/less" type="text/css" href="/dist/style.less"/>
+  <link rel="stylesheet" href="/dist/style.css"/>
 
   <script src="/dist/modules/Alpinejs.min@3.10.2.js" defer></script>
-  <script src="/dist/modules/less@4.1.3.js" defer></script>
   <script src="/dist/main.js" type="module"></script>
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
 </head>
 
-<body x-data="{ openTab: 6 }">
+<body x-data="{ openTab: 5 }">
   
   <button type="button" class="OpenSide">=></button>
   <div class="blur"></div>
@@ -36,7 +37,7 @@
   </nav>
   
   <section>
-    <span x-show="openTab === 1" x-cloak x-transition.delay.500ms>
+    <span x-show="openTab === 1" x-cloak x-transition.delay.50ms>
       
       <form class="SignIn">
         <div class="FormGroup">
@@ -55,7 +56,7 @@
       <div class="UserContainer"></div>
       
     </span>
-    <span x-show="openTab === 2" x-cloak x-transition.delay.500ms>
+    <span x-show="openTab === 2" x-cloak x-transition.delay.50ms>
       
       <form class="UploadVolume">
         <div class="FormGroup">
@@ -100,7 +101,7 @@
       </form>
       
     </span>
-    <span x-show="openTab === 3" x-cloak x-transition.delay.500ms>
+    <span x-show="openTab === 3" x-cloak x-transition.delay.50ms>
       
       <form class="UploadManga">
         <div class="FormGroup">
@@ -137,7 +138,7 @@
       </form>
       
     </span>
-    <span x-show="openTab === 4" x-cloak x-transition.delay.500ms>
+    <span x-show="openTab === 4" x-cloak x-transition.delay.50ms>
       
       <form class="UploadBlog">
         <div class="FormGroup">
@@ -159,7 +160,7 @@
       </form>
       
     </span>
-    <span x-show="openTab === 5" x-cloak x-transition.delay.500ms>
+    <span x-show="openTab === 5" x-cloak x-transition.delay.50ms>
       
       <table>
         <thead>
@@ -173,12 +174,12 @@
       </table>
       
       <span class="NPPContainer">
-        <button type="button" class="LMP"><<<</button>
-        <button type="button" class="LLP">>>></button>
+        <button type="button" class="LMP">Next</button>
+        <button type="button" class="LLP">Prev</button>
       </span>
       
     </span>
-    <span x-show="openTab === 6" x-cloak x-transition.delay.500ms>
+    <span x-show="openTab === 6" x-cloak x-transition.delay.50ms>
       
       <div class="SearcContainer">
         <input type="text" class="SearchByTitle" placeholder="Searc By Title ..."/>
@@ -209,7 +210,7 @@
 
       
     </span>
-    <span x-show="openTab === 7" x-cloak x-transition.delay.500ms>
+    <span x-show="openTab === 7" x-cloak x-transition.delay.50ms>
 
 
       <table>
@@ -223,7 +224,7 @@
         <tbody class="EditBlogs"></tbody>
       </table>
     </span>
-    <span x-show="openTab === 8" x-cloak x-transition.delay.500ms>
+    <span x-show="openTab === 8" x-cloak x-transition.delay.50ms>
       
       <div class="FormGroup">
         <select name="SelectManga" id="SelectManga"></select>
