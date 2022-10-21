@@ -3,9 +3,15 @@ import {
   GetID, TableSearch, Options, getOptions, TableFilter,
 } from '/dist/firebase.js';
 
+const loading = document.querySelector('.load');
+
 const WindowPATH = window.location.pathname;
 const WindowMODE = window.location.href.split('#')[1];
 const WindowREF = window.location.href.split('/').pop();
+
+console.log({
+  WindowPATH, WindowREF, WindowMODE
+});
 
 const SignInForm = document.querySelector('.SignIn');
 const UserContainer = document.querySelector('.UserContainer');
@@ -14,6 +20,7 @@ const UploadVolume = document.querySelector('.UploadVolume');
 const UploadManga = document.querySelector('.UploadManga');
 const UploadBlog = document.querySelector('.UploadBlog');
 
+const tbodys = document.querySelectorAll('tbody');
 const EditRecent = document.querySelector('.EditRecent');
 const EditList = document.querySelector('.EditList');
 const EditBlogs = document.querySelector('.EditBlogs')
@@ -22,7 +29,6 @@ const UpdateVolume = document.querySelector('.UpdateVolume');
 const UpdateManga = document.querySelector('.UpdateManga');
 const UpdateBlog = document.querySelector('.UpdateBlog');
 
-const SelectManga = document.querySelector('#SelectManga');
 const SoloManga = document.querySelector('.SoloManga');
 
 const SearchByTitle = document.querySelector('.SearchByTitle');
@@ -176,11 +182,6 @@ window.onload = ()=> {
         `;
     })
     
-    SelectManga.addEventListener('change', async (event)=> {
-      const { RetrieveByTitle } = await import('/dist/src/Retrieve.js');
-      RetrieveByTitle(SoloManga, event.target.value);
-    })
-    
     SearchByTitle.addEventListener('keyup', () => {
       TableSearch();
     })
@@ -203,7 +204,27 @@ window.onload = ()=> {
 
     /* Pagination End */
     
-    AvailableMangaList(SelectManga);
+    /* Loading Operation Start */
+    
+    tbodys.forEach((tbody) => {
+      let load = setInterval(() => {
+        if(tbody.childNodes.length !== 0) {
+          loading.style.display = 'none';
+          clearInterval(load);
+        }
+      }, 100)
+    })
+    
+    /* Loading Operation End */
+    
+  } else if(WindowPATH === '/solo.html' && WindowMODE !== undefined) {
+    
+    import('/dist/src/Retrieve.js').then((modules) => {
+      const { RetrieveSolo } = modules;
+      
+      RetrieveSolo(SoloManga, WindowREF);
+    })
+    
   } else if(WindowPATH === '/edit.html' && WindowMODE === '/recent') {
     
     UpdateManga.style.display = 'none';
@@ -319,5 +340,7 @@ window.onload = ()=> {
       UpdateBlogFunc(WindowREF, data, ProgressBar);
     })
     
+  } else {
+    window.location.assign('/');
   }
 }

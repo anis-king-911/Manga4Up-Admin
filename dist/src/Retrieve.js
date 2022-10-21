@@ -39,7 +39,12 @@ const recentTableRow = (key, data) => {
 }
 const listTableRow = (key, data) => {
   let div;
-
+  
+  const {
+    Cover, Title, Count, State, CreationDate, Options = []
+  } = data;
+  
+  if(Options.includes('Comming Soon')) {
   div = `
   <tr data-state="${data.State}">
     <td>
@@ -60,7 +65,31 @@ const listTableRow = (key, data) => {
     </td>
   </tr>
     `;
-
+  } else {
+  div = `
+  <tr data-state="${data.State}">
+    <td>
+      <img src="${data.Cover}" alt="${data.Title}" />
+    </td>
+    <td>
+      <span>${data.Title}: ${data.Count}</span> <br />
+      Manga State: ${data.State} <br />
+      Manga Release: ${ReverseDate(data.CreationDate)}<br />
+    </td>
+    <td>
+      <button type="button" data-key="${key}" onclick="DeleteManga(this)">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      </button>
+      <a href="/edit.html#/list#/${key}">
+        <button><i class="fa fa-edit" aria-hidden="true"></i></button>
+      </a>
+      <a href="/solo.html#/${data.Title.replaceAll(' ', '_')}">
+        <button><i class="fa fa-eye" aria-hidden="true"></i></button>
+      </a>
+    </td>
+  </tr>
+    `;
+  }
   return div;
 }
 const blogTableRow = (key, data) => {
@@ -176,7 +205,7 @@ function RetrieveBlogs(Container) {
     })
   })
 }
-function RetrieveByTitle(Container, mangaName) {
+function RetrieveSolo(Container, mangaName) {
   const databaseRef = ref(database, Manga4Up);
   
   onValue(databaseRef, (snapshot) => {
@@ -186,10 +215,8 @@ function RetrieveByTitle(Container, mangaName) {
       const value = snap.val();
       const data = value['Volume Data'];
   
-      if (data['Manga Title'] === mangaName) {
-        Container.innerHTML =
-          recentTableRow(key, data) +
-        Container.innerHTML;
+      if (data['Manga Title'] === mangaName.replaceAll('_', ' ')) {
+        Container.innerHTML += recentTableRow(key, data);
       }
     })
   })
@@ -316,6 +343,6 @@ window.DeleteBlog = DeleteBlog;
 
 export {
   RetrieveRecent, RetrieveLoadMore, RetrieveLoadLess,
-  RetrieveList_one, RetrieveBlogs, RetrieveByTitle,
+  RetrieveList_one, RetrieveBlogs, RetrieveSolo,
   RetrieveList_two
 }

@@ -17,8 +17,11 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
 </head>
 
-<body x-data="{ openTab: 5 }">
+<body x-data="{ openTab: 6 }">
   
+  <div class="load">
+    <span>loading</span>
+  </div>
   <button type="button" class="OpenSide">=></button>
   <div class="blur"></div>
   
@@ -32,7 +35,6 @@
       <button type="button" x-on:click="openTab = 5" :class="{ 'active': openTab === 5 }">Edit Recent</button>
       <button type="button" x-on:click="openTab = 6" :class="{ 'active': openTab === 6 }">Edit List</button>
       <button type="button" x-on:click="openTab = 7" :class="{ 'active': openTab === 7 }">Edit Blogs</button>
-      <button type="button" x-on:click="openTab = 8" :class="{ 'active': openTab === 8 }">Edit By Title</button>
     </div>
   </nav>
   
@@ -223,24 +225,6 @@
         </thead>
         <tbody class="EditBlogs"></tbody>
       </table>
-    </span>
-    <span x-show="openTab === 8" x-cloak x-transition.delay.50ms>
-      
-      <div class="FormGroup">
-        <select name="SelectManga" id="SelectManga"></select>
-      </div>
-      
-      <table>
-        <thead>
-          <tr>
-            <td>Cover</td>
-            <td>Info</td>
-            <td>Actions</td>
-          </tr>
-        </thead>
-        <tbody class="SoloManga"></tbody>
-      </table>
-      
     </span>
   </section>
   
