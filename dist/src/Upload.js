@@ -1,5 +1,5 @@
 import {
-  database, storage, Manga4Up, List, size,
+  database, storage, Manga4Up, List, ToDos, size,
   ref, child, onValue, set, push, update, remove, 
   query, orderByChild, limitToLast,
   cloud, listAll, getDownloadURL,
@@ -87,7 +87,17 @@ function UploadBlogFunc(data, progressState) {
     });
   });
 }
+function UploadToDo(data) {
+  const { ToDo, CreatedAt } = data;
+  
+  const databaseRef = ref(database, ToDos);
+  const databaseChild = push(databaseRef);
+  
+  set(databaseChild, { ToDo, CreatedAt })
+    .then(() => console.log('operation done'))
+    .catch(error => console.log(error))
+}
 
 export {
-  UploadVolumeFunc, UploadMangaFunc, UploadBlogFunc
+  UploadVolumeFunc, UploadMangaFunc, UploadBlogFunc, UploadToDo,
 }

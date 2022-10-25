@@ -35,6 +35,7 @@
       <button type="button" x-on:click="openTab = 5" :class="{ 'active': openTab === 5 }">Edit Recent</button>
       <button type="button" x-on:click="openTab = 6" :class="{ 'active': openTab === 6 }">Edit List</button>
       <button type="button" x-on:click="openTab = 7" :class="{ 'active': openTab === 7 }">Edit Blogs</button>
+      <button type="button" x-on:click="openTab = 8" :class="{ 'active': openTab === 8 }">To Dos</button>
     </div>
   </nav>
   
@@ -198,6 +199,10 @@
         <button data-sort="Count">Count ></button>
         <button data-sort="CreationDate">CreationDate ></button>
       </div>
+      <div class="ExtraFilterContainer">
+        <button data-filter="Comming Soon">Comming Soon</button>
+        <button data-filter="One Shot">One Shot</button>
+      </div>
       
       <table>
         <thead>
@@ -225,6 +230,21 @@
         </thead>
         <tbody class="EditBlogs"></tbody>
       </table>
+    </span>
+    <span x-show="openTab === 8" x-cloak x-transition.delay.50ms>
+      
+      <form class="UploadToDo">
+        <div class="FormGroup">
+          <label for="ToDo">ToDo</label>
+          <input type="text" name="ToDo" id="ToDo" placeholder="ToDo..."/>
+        </div>
+        <div class="FormGroup">
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+      
+      <div class="ToDos"></div>
+      
     </span>
   </section>
   

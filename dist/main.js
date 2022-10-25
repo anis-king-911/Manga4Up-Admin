@@ -9,10 +9,6 @@ const WindowPATH = window.location.pathname;
 const WindowMODE = window.location.href.split('#')[1];
 const WindowREF = window.location.href.split('/').pop();
 
-console.log({
-  WindowPATH, WindowREF, WindowMODE
-});
-
 const SignInForm = document.querySelector('.SignIn');
 const UserContainer = document.querySelector('.UserContainer');
 
@@ -30,9 +26,12 @@ const UpdateManga = document.querySelector('.UpdateManga');
 const UpdateBlog = document.querySelector('.UpdateBlog');
 
 const SoloManga = document.querySelector('.SoloManga');
+const ToDosForm = document.querySelector('.UploadToDo');
+const ToDosContainer = document.querySelector('.ToDos');
 
 const SearchByTitle = document.querySelector('.SearchByTitle');
 const SearchByState = document.querySelector('.SearchByState');
+const FilterByOptions = document.querySelectorAll('[data-filter]');
 const LoadMore = document.querySelector('.LMP');
 const LoadLess = document.querySelector('.LLP');
 
@@ -126,15 +125,32 @@ window.onload = ()=> {
       setTimeout(()=> {UploadBlog.reset()}, 600);
     })
     
+    ToDosForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      
+      const data = {
+        ToDo: ToDosForm.ToDo.value,
+        CreatedAt: Date.now()
+      }
+      
+      const { UploadToDo } = await import('/dist/src/Upload.js');
+      
+      UploadToDo(data);
+      setTimeout(() => { ToDosForm.reset() }, 600);
+    })
+    
+    
     import('/dist/src/Retrieve.js').then((modules) => {
       const {
-        RetrieveRecent, RetrieveList_one, RetrieveList_two, RetrieveBlogs
+        RetrieveRecent, RetrieveList_one, RetrieveList_two,
+        RetrieveBlogs, RetrieveToDos
       } = modules;
 
       RetrieveRecent(EditRecent);
       RetrieveList_one(EditList, 'Title');
       RetrieveBlogs(EditBlogs);
-
+      RetrieveToDos(ToDosContainer);
+      
       SortingBtns[0].classList.add('active')
       SortingBtns.forEach((btn) => {
         btn.addEventListener('click', (event) => {
@@ -154,7 +170,21 @@ window.onload = ()=> {
 
         })
       })
+      // filter by options
+      
     })
+    
+    FilterByOptions.forEach((btn) => {
+      const option = btn.getAttribute('data-filter');
+      
+      btn.addEventListener('click', async () => {
+        const {
+          RetrieveFiltered
+        } = await import('/dist/src/Retrieve.js');
+        
+        RetrieveFiltered(EditList, option);
+      })
+    });
     
     import('/dist/src/Authentication.js').then((modules) => {
       const { AuthState } = modules;

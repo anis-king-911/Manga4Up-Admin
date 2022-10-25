@@ -31,10 +31,10 @@ const database = getDatabase(app);
 const storage = getStorage(app);
 const auth = getAuth(app);
 
-let Manga4Up = 'Manga4Up/', List = 'List/', size = 5;
+let Manga4Up = 'Manga4Up/', List = 'List/', ToDos = 'ToDos/', size = 5;
 
 export {
-  database, storage, Manga4Up, List, size, Mangalist, UpComming, Options,
+  database, storage, Manga4Up, List, ToDos, size, Mangalist, UpComming, Options,
   ref, child, onValue, set, push, update, remove, 
   query, orderByChild, limitToLast, endBefore, startAfter, limitToFirst,
   cloud, listAll, getDownloadURL, deleteObject,
@@ -138,14 +138,27 @@ export function ReverseDate_V2(argument) {
   return thre;
 }
 
+export function ReverseDate_V3(arg) {
+  const one = new Number(arg);
+  const two = new Date(one);
+
+  const day = two.getDate();
+  const month = two.getMonth() + 1;
+  const year = two.getFullYear();
+
+  const hour = two.getHours();
+  const minute = two.getMinutes();
+
+  const str = `${day}/${month}/${year} - ${hour}:${minute}`;
+
+  return str;
+}
+
 const UpComming = [
   '',
-  'Blue Lock',
   'Fire Punch',
   'Tonikaku Kawaii',
-  '',
   'Fairy Tail',
-  'Monster',
   '',
   'Kaguya-sama: Love is War',
   'Pumpkin Night',
@@ -157,10 +170,10 @@ const Mangalist = [
   'Blue Lock',
   'Berserk',
   'Monster',
+  'Fire Punch',
   'Horimiya',
   'Kiseijuu',
   'Fairy Tail',
-  'Fire Punch',
   'Tonikaku Kawaii',
 //  'Kaguya-sama: Love is War',
   '',
@@ -188,5 +201,5 @@ const Mangalist = [
 ];
 
 const Options = [
-  'Comming Soon', '+18', 'One Shot',
+  'Comming Soon', 'One Shot',
 ];

@@ -1,5 +1,5 @@
 import {
-  database, Manga4Up, List, size, ReverseDate,
+  database, Manga4Up, List, ToDos, size, ReverseDate, ReverseDate_V3,
   ref, child, onValue, remove, 
   query, orderByChild, limitToLast, endBefore,
   startAfter, limitToFirst, storage,
@@ -116,6 +116,20 @@ const blogTableRow = (key, data) => {
   `;
 
   return div;
+}
+const ToDo = (key, data) => {
+  const { ToDo, CreatedAt } = data;
+  return `
+    <div class="Todo">
+      <div class="Content">
+        ${ToDo}
+      </div>
+      <div class="Actions">
+        <button data-key="${key}" onclick="DeleteToDo(this)">Delete</button>
+        <span>${ReverseDate_V3(CreatedAt)}</span>
+      </div>
+    </div>
+  `;
 }
 
 ////////////////////////////////////////////////
@@ -259,6 +273,46 @@ function RetrieveList_two(Container, Order) {
 
 ////////////////////////////////////////////////
 
+function RetrieveToDos(Container) {
+  const databaseRef = ref(database, ToDos);
+  
+  onValue(databaseRef, snapshot => {
+    Container.innerHTML = '';
+    
+    snapshot.forEach(snap => {
+      const key = snap.key;
+      const data = snap.val();
+      
+      Container.innerHTML = ToDo(key, data) + Container.innerHTML;
+    })
+  })
+}
+
+////////////////////////////////////////////////
+
+function RetrieveFiltered(Container, filter) {
+  const databaseRef = ref(database, List);
+  
+  onValue(databaseRef, (snapshot)=> {
+    Container.innerHTML = '';
+    
+    snapshot.forEach(snap => {
+      const key = snap.key;
+      const data = snap.val();
+      
+      const { Options = [] } = data;
+      
+      if(Options.includes(filter)) {
+        Container.innerHTML =
+          listTableRow(key, data) +
+        Container.innerHTML;
+      }
+    })
+  })
+}
+
+////////////////////////////////////////////////
+
 function DeleteVolume(event) {
   const question = confirm('Delete This Volume ?');
   
@@ -334,15 +388,35 @@ function DeleteBlog(event) {
       break;
   }
 }
+function DeleteToDo(event) {
+  const question = confirm('Delete ToDo ?');
+  
+  switch (question) {
+    case true:
+        const key = event.getAttribute('data-key');
+        
+        const databaseRef = ref(database, ToDos);
+        const databaseChild = child(databaseRef, key);
+        
+        remove(databaseChild)
+        .then(() => console.log('operation done'))
+        .catch(error => console.log(error));
+      break;
+    case false:
+        alert('Operation Cancelled !');
+      break;
+  }
+}
 
 window.DeleteVolume = DeleteVolume;
 window.DeleteManga = DeleteManga;
 window.DeleteBlog = DeleteBlog;
+window.DeleteToDo = DeleteToDo;
 
 ////////////////////////////////////////////////
 
 export {
   RetrieveRecent, RetrieveLoadMore, RetrieveLoadLess,
   RetrieveList_one, RetrieveBlogs, RetrieveSolo,
-  RetrieveList_two
+  RetrieveList_two, RetrieveToDos, RetrieveFiltered,
 }
