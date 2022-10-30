@@ -159,6 +159,7 @@ const UpComming = [
   'Fire Punch',
   'Tonikaku Kawaii',
   'Fairy Tail',
+  'jujutsu kaisen 0',
   '',
   'Kaguya-sama: Love is War',
   'Pumpkin Night',
@@ -175,6 +176,7 @@ const Mangalist = [
   'Kiseijuu',
   'Fairy Tail',
   'Tonikaku Kawaii',
+  'jujutsu kaisen 0',
 //  'Kaguya-sama: Love is War',
   '',
 
