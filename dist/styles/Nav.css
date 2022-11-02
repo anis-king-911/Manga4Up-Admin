@@ -1,0 +1,83 @@
+nav.act {
+  left: 0;
+  opacity: 1;
+  visibility: visible;
+}
+.blur.act {
+  z-index: 2;
+  opacity: 1;
+  visibility: visible;
+}
+.OpenSide.act {
+  margin-left: 310px;
+  transform: rotate(180deg);
+}
+
+nav {
+  width: 300px;
+  min-height: 100vh;
+  position: fixed;
+  top: 0;left: -60vw;
+  z-index: 3;
+  background: #ccc;
+  transition: 600ms;
+  opacity: 0;
+  visibility: hidden;
+}
+.logo {
+  text-align: center;
+  font-size: 26px;
+  font-weight: bolder;
+  padding: 10px;
+}
+.links {
+  display: grid;
+  grid-gap: 4px;
+  padding: 4px;
+  width: 80%;
+  margin: 0 auto;
+}
+.links button {
+  font-size: 18px;
+  padding: 8px 0;
+  border: 1px solid #444;
+  border-radius: 4px;
+  background: rgba(0, 171, 255, 1);
+  transition: 800ms;
+  font-weight: bolder;
+}
+
+.links button:hover {
+  background: rgba(0, 134, 255, 1);
+}
+
+.links button.active {
+  background: rgba(0, 100, 255, 1);
+}
+
+.OpenSide {
+  position: fixed;
+  top: 0;left: 0;
+  z-index: 9;
+  margin: 10px;
+  transition: 600ms;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  border: 1px solid #000;
+  background: #00D1B7;
+}
+
+.blur {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;left: 0;
+  z-index: -2;
+  filter: blur(6px);
+  background: rgba(0, 0, 0, .5);
+  backdrop-filter: blur(6px);
+  transition: 600ms;
+  opacity: 0;
+  visibility: hidden;
+}
