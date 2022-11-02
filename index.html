@@ -9,7 +9,12 @@
   <title>Manga4Up | Admin</title>
 
   <link rel="icon" href="/dist/admin.png" type="image/png" />
-  <link rel="stylesheet" href="/dist/style.css"/>
+  <link rel="stylesheet" href="/dist/styles/style.css"/>
+  <link rel="stylesheet" href="/dist/styles/User.css"/>
+  <link rel="stylesheet" href="/dist/styles/Nav.css">
+  <link rel="stylesheet" href="/dist/styles/Forms.css"/>
+  <link rel="stylesheet" href="/dist/styles/Table.css">
+  <link rel="stylesheet" href="/dist/styles/ToDos.css"/>
 
   <script src="/dist/modules/Alpinejs.min@3.10.2.js" defer></script>
   <script src="/dist/main.js" type="module"></script>
@@ -17,11 +22,10 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
 </head>
 
-<body x-data="{ openTab: 2 }">
+<body x-data="{ openTab: 5 }">
   
-  <div class="load">
-    <span>loading</span>
-  </div>
+  <div class="load"><span></span></div>
+  
   <button type="button" class="OpenSide">=></button>
   <div class="blur"></div>
   
@@ -39,7 +43,7 @@
     </div>
   </nav>
   
-  <section>
+  <main>
     <span x-show="openTab === 1" x-cloak x-transition.delay.50ms>
       
       <form class="SignIn">
@@ -177,8 +181,8 @@
       </table>
       
       <span class="NPPContainer">
-        <button type="button" class="LMP">Next</button>
-        <button type="button" class="LLP">Prev</button>
+        <button type="button" class="LMP">Old Data</button>
+        <button type="button" class="LLP">New Data</button>
       </span>
       
     </span>
@@ -246,29 +250,11 @@
       <div class="ToDos"></div>
       
     </span>
-  </section>
-  
-  <script>
-    const OpenSide = document.querySelector('.OpenSide');
-    const blur = document.querySelector('.blur');
-    const nav = document.querySelector('nav');
-    
-    OpenSide.addEventListener('click', (event)=> {
-      OpenSide.classList.toggle('act');
-      nav.classList.toggle('act');
-      blur.classList.toggle('act');
-    })
-    
-    const navLinks = Array.from(document.querySelectorAll('.links button'))
-    
-    navLinks.forEach(link => {
-      link.addEventListener('click', (event)=> {
-        OpenSide.classList.toggle('act');
-        nav.classList.toggle('act');
-        blur.classList.toggle('act');
-      })
-    })
-  </script>
+  </main>
+
+  <footer>
+    Manga4Up Admin Page
+  </footer>
 </body>
 
 </html>
