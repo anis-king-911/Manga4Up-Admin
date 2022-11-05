@@ -129,6 +129,10 @@ const ToDo = (key, data) => {
 
 function RetrieveRecent(Container) {
   const databaseRef = ref(database, Manga4Up);
+  
+  onValue(databaseRef, snapshot => console.log(snapshot))
+  onValue(databaseRef, snapshot => console.log(snapshot.val()))
+  
   const databaseOrder = query(databaseRef, orderByChild('Volume Data/CreatedAt'));
   const databaseLimit = query(databaseOrder, limitToLast(size));
   
