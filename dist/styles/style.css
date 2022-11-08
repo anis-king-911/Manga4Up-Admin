@@ -10,10 +10,6 @@ body {
   padding: 0;
 }
 
-main {
-  margin-bottom: 16%;
-}
-
 .load {
   position: fixed;
   top: 0;left: 0;
@@ -94,15 +90,4 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-footer {
-  width: 100%;
-  padding: 4%;
-  background: #000;
-  position: fixed;
-  bottom: 0;
-  color: #fff;
-  text-align: center;
-  font-size: 22px;
 }

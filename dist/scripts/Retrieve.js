@@ -34,15 +34,12 @@ const recentTableRow = (key, data) => {
     `
 }
 const listTableRow = (key, data) => {
-  let div;
-  
   const {
-    Cover, Title, Count, State, CreationDate, Options = []
+    ID, Cover, Title, Count, State, CreationDate, Options = []
   } = data;
   
-  if(Options.includes('Comming Soon')) {
-  div = `
-  <tr data-state="${State}">
+  return `
+  <tr data-state="${State}" id="${ID}">
     <td>
       <img src="${Cover}" alt="${Title}" />
     </td>
@@ -58,35 +55,13 @@ const listTableRow = (key, data) => {
       <a href="/edit.html#/list#/${key}">
         <button><i class="fa fa-edit" aria-hidden="true"></i></button>
       </a>
+      ${Options.find(Option => Option === 'Comming Soon') ? '' : `
+        <a href="/solo.html#/${Title.replaceAll(' ', '_')}">
+          <button><i class="fa fa-eye" aria-hidden="true"></i></button>
+        </a>`}
     </td>
   </tr>
     `;
-  } else {
-  div = `
-  <tr data-state="${State}">
-    <td>
-      <img src="${Cover}" alt="${Title}" />
-    </td>
-    <td>
-      <span>${Title}: ${Count}</span> <br />
-      Manga State: ${State} <br />
-      Manga Release: ${ReverseDate(CreationDate)}<br />
-    </td>
-    <td>
-      <button type="button" data-key="${key}" onclick="DeleteManga(this)">
-        <i class="fa fa-trash" aria-hidden="true"></i>
-      </button>
-      <a href="/edit.html#/list#/${key}">
-        <button><i class="fa fa-edit" aria-hidden="true"></i></button>
-      </a>
-      <a href="/solo.html#/${Title.replaceAll(' ', '_')}">
-        <button><i class="fa fa-eye" aria-hidden="true"></i></button>
-      </a>
-    </td>
-  </tr>
-    `;
-  }
-  return div;
 }
 const blogTableRow = (key, data) => {
   const { Image, Title, Content } = data;
