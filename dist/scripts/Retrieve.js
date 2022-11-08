@@ -10,6 +10,14 @@ let firstKey = null, lastKey = null, lastChild = null;
 
 ////////////////////////////////////////////////
 
+const adminState = {
+  'Publishing': 'rgba(0, 255, 0, .4)',
+  'Finished': 'rgba(0, 0, 255, .4)',
+  'On Hiatus': 'rgba(255, 0, 0, .4)',
+}
+
+////////////////////////////////////////////////
+
 const recentTableRow = (key, data) => {
   return `
   <tr x-data="{openToEdit : false}">
@@ -39,7 +47,7 @@ const listTableRow = (key, data) => {
   } = data;
   
   return `
-  <tr data-state="${State}" id="${ID}">
+  <tr data-state="${State}" id="${ID}" style="background: ${adminState[State]};">
     <td>
       <img src="${Cover}" alt="${Title}" />
     </td>
