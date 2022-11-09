@@ -156,6 +156,11 @@ export function ReverseDate_V3(arg) {
 
 const UpComming = [
   '',
+  'Zetman',
+  'Koe no Katachi',
+  'Kimi no Na wa',
+  'Ao Haru Ride',
+  'Ijiranaide, Nagatoro-san',
   'Tonikaku Kawaii',
   'Fairy Tail',
   '',
@@ -164,12 +169,15 @@ const UpComming = [
 ];
 const Mangalist = [
   '',
+  'Berserk',
   'Vagabond',
   'Blue Lock',
-  'Berserk',
-  'Monster',
   'Fire Punch',
-  'Kiseijuu',
+  'Zetman',
+  'Koe no Katachi',
+  'Kimi no Na wa',
+  'Ao Haru Ride',
+  'Ijiranaide, Nagatoro-san',
   'Tonikaku Kawaii',
   'Pumpkin Night',
   'Fairy Tail',
